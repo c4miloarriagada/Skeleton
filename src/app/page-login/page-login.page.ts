@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-page-login',
@@ -18,8 +18,14 @@ export class PageLoginPage implements OnInit {
 
   login() {
     if (this.validateCredentials()) {
-      // Pasar los datos del formulario al Page Home
-      this.router.navigate(['/home'], { queryParams: this.credentials });
+      let navigationExtras: NavigationExtras = {
+        state: {
+          username: this.credentials.username,
+          password: this.credentials.password,
+        },
+      };
+
+      this.router.navigate(['/home'], navigationExtras);
     }
   }
 

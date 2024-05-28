@@ -1,23 +1,26 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Page-Login</ion-title>
+    <ion-title>Skeleton App</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <form #loginForm="ngForm" (ngSubmit)="login()">
-    <ion-item>
-      <ion-label position="floating">Usuario</ion-label>
-      <ion-input name="username" [(ngModel)]="credentials.username" required minlength="3" maxlength="8"
-        pattern="^[a-zA-Z0-9]*$"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input name="password" [(ngModel)]="credentials.password" required minlength="4" maxlength="4"
-        type="password"></ion-input>
-    </ion-item>
-    <ion-button type="submit" [disabled]="!loginForm.valid" expand="block" color="primary">
-      Ingresar
-    </ion-button>
-  </form>
+  <div class="container">
+    <form #loginForm="ngForm" (ngSubmit)="login()">
+      <ion-item>
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input name="username" [(ngModel)]="credentials.username" required minlength="3" maxlength="8"
+          pattern="^[a-zA-Z0-9]*$"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input name="password" [(ngModel)]="credentials.password" required minlength="4" maxlength="4"
+          type="password"></ion-input>
+      </ion-item>
+      <ion-button type="submit" [disabled]="!loginForm.valid" expand="block">
+        Ingresar
+      </ion-button>
+    </form>
+  </div>
+
 </ion-content>
