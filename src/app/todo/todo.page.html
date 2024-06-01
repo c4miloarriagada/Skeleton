@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      To-Do
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card-header>
+    <ion-card-title>Bienvenido a To-Do App, {{ username }}</ion-card-title>
+  </ion-card-header>
+  <div id="container">
+    <div class="agregar-tarea">
+      <ion-card>
+        <ion-item>
+          <ion-input placeholder="Nueva tarea" [(ngModel)]="nuevaTarea"></ion-input>
+          <ion-button (click)="agregarTarea()">Agregar</ion-button>
+        </ion-item>
+      </ion-card>
+    </div>
+    <ion-list>
+      <ion-item *ngFor="let tarea of tareas; let i = index">
+        <span *ngIf="!tarea.editando">{{ tarea.valor }}</span>
+        <ion-input *ngIf="tarea.editando" [(ngModel)]="tarea.valor"></ion-input>
+        <ion-icon *ngIf="!tarea.editando" style="cursor: pointer;" name="pencil" slot="end"
+          (click)="editarTarea(i)"></ion-icon>
+        <ion-icon *ngIf="tarea.editando" style="cursor: pointer;" name="checkmark" slot="end"
+          (click)="guardarTarea(i)"></ion-icon>
+        <ion-icon style="cursor: pointer;" name="trash" slot="end" (click)="eliminarTarea(i)"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

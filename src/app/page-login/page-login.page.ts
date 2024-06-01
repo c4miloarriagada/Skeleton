@@ -8,8 +8,8 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class PageLoginPage implements OnInit {
   credentials = {
-    username: '',
-    password: '',
+    username: 'camilo',
+    password: '1234',
   };
 
   constructor(private router: Router) {}

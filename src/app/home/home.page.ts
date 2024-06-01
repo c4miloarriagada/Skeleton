@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { AlertController, AnimationController, IonCard } from '@ionic/angular';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+  @ViewChild(IonCard, { read: ElementRef })
+  card?: ElementRef<HTMLIonCardElement>;
+
   username: string = '';
   nombre: string = '';
   apellido: string = '';
@@ -15,7 +19,8 @@ export class HomePage implements OnInit {
 
   constructor(
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private animationCtrl: AnimationController
   ) {}
 
   ngOnInit() {
@@ -26,6 +31,17 @@ export class HomePage implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    const animation = this.animationCtrl
+      .create()
+      .addElement(this.card!.nativeElement)
+      .duration(500)
+      .iterations(1)
+      .fromTo('transform', 'translateX(100px)', 'translateX(0px)')
+      .fromTo('opacity', '0.2', '1');
+
+    animation.play();
+  }
   limpiarCampos() {
     this.nombre = '';
     this.apellido = '';
@@ -41,5 +57,18 @@ export class HomePage implements OnInit {
     });
 
     await alert.present();
+  }
+  toDoNavegacion() {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        username: this.username,
+        nombre: this.nombre,
+        apellido: this.apellido,
+        educacion: this.educacion,
+        fechaNacimiento: this.fechaNacimiento,
+      },
+    };
+
+    this.router.navigate(['todo'], navigationExtras);
   }
 }

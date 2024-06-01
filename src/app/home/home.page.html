@@ -10,34 +10,40 @@
   <ion-card-header>
     <ion-card-title>Bienvenido, {{ username }}</ion-card-title>
   </ion-card-header>
+  <ion-buttons>
+    <ion-button (click)="toDoNavegacion()">Ir a To-Do App</ion-button>
+  </ion-buttons>
   <div id="container">
-    <form #infoForm="ngForm">
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <ion-input type="text" [(ngModel)]="nombre" name="nombre"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Apellido</ion-label>
-        <ion-input type="text" [(ngModel)]="apellido" name="apellido"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Nivel de educación</ion-label>
-        <ion-select [(ngModel)]="educacion" name="educacion" interface="popover">
-          <ion-select-option value="tecnico_superior">Educación Superior (Técnico Superior)</ion-select-option>
-          <ion-select-option value="profesional">Educación Superior (Profesional)</ion-select-option>
-          <ion-select-option value="licenciatura">Educación Superior (Licenciatura)</ion-select-option>
-          <ion-select-option value="magister">Educación Superior (Magíster)</ion-select-option>
-          <ion-select-option value="doctorado">Educación Superior (Doctorado)</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Fecha de nacimiento</ion-label>
-        <ion-input type="date" [(ngModel)]="fechaNacimiento" name="fechaNacimiento"></ion-input>
-      </ion-item>
-      <div class="button-group">
-        <ion-button expand="block" type="button" (click)="limpiarCampos()">Limpiar</ion-button>
-        <ion-button expand="block" type="button" (click)="mostrarInformacion()">Mostrar</ion-button>
-      </div>
-    </form>
+    <ion-card>
+
+      <form #infoForm="ngForm">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input type="text" [(ngModel)]="nombre" name="nombre"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Apellido</ion-label>
+          <ion-input type="text" [(ngModel)]="apellido" name="apellido"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Nivel de educación</ion-label>
+          <ion-select [(ngModel)]="educacion" name="educacion" interface="popover">
+            <ion-select-option value="tecnico_superior">Educación Superior (Técnico Superior)</ion-select-option>
+            <ion-select-option value="profesional">Educación Superior (Profesional)</ion-select-option>
+            <ion-select-option value="licenciatura">Educación Superior (Licenciatura)</ion-select-option>
+            <ion-select-option value="magister">Educación Superior (Magíster)</ion-select-option>
+            <ion-select-option value="doctorado">Educación Superior (Doctorado)</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Fecha de nacimiento</ion-label>
+          <ion-input type="date" [(ngModel)]="fechaNacimiento" name="fechaNacimiento"></ion-input>
+        </ion-item>
+        <div class="button-group">
+          <ion-button expand="block" type="button" (click)="limpiarCampos()">Limpiar</ion-button>
+          <ion-button expand="block" type="button" (click)="mostrarInformacion()">Mostrar</ion-button>
+        </div>
+      </form>
+    </ion-card>
   </div>
 </ion-content>

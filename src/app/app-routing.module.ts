@@ -20,6 +20,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
   },
+  {
+    path: 'todo',
+    loadChildren: () =>
+      import('./todo/todo.module').then((m) => m.TodoPageModule),
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
 ];
 
 @NgModule({
