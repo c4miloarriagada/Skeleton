@@ -11,7 +11,8 @@
     <ion-card-title>Bienvenido, {{ username }}</ion-card-title>
   </ion-card-header>
   <ion-buttons>
-    <ion-button (click)="toDoNavegacion()">Ir a To-Do App</ion-button>
+    <ion-button (click)="toDoNavegacion('todo')">Ir a To-Do App</ion-button>
+    <ion-button (click)="toDoNavegacion('profile')">Ir a Mi Perfil</ion-button>
   </ion-buttons>
   <div id="container">
     <ion-card>
@@ -41,7 +42,7 @@
         </ion-item>
         <div class="button-group">
           <ion-button expand="block" type="button" (click)="limpiarCampos()">Limpiar</ion-button>
-          <ion-button expand="block" type="button" (click)="mostrarInformacion()">Mostrar</ion-button>
+          <ion-button expand="block" type="button" (click)="mostrarInformacion()">Guardar</ion-button>
         </div>
       </form>
     </ion-card>

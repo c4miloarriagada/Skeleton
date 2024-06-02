@@ -10,7 +10,7 @@ import { AlertController, AnimationController, IonCard } from '@ionic/angular';
 export class HomePage implements OnInit {
   @ViewChild(IonCard, { read: ElementRef })
   card?: ElementRef<HTMLIonCardElement>;
-
+  userData: any = {};
   username: string = '';
   nombre: string = '';
   apellido: string = '';
@@ -50,6 +50,14 @@ export class HomePage implements OnInit {
   }
 
   async mostrarInformacion() {
+    this.userData = {
+      username: this.username,
+      nombre: this.nombre,
+      apellido: this.apellido,
+      educacion: this.educacion,
+      fechaNacimiento: this.fechaNacimiento,
+    };
+
     const alert = await this.alertController.create({
       header: 'Usuario',
       message: `Su nombre es ${this.nombre} ${this.apellido}`,
@@ -57,18 +65,19 @@ export class HomePage implements OnInit {
     });
 
     await alert.present();
+    this.limpiarCampos();
   }
-  toDoNavegacion() {
+  toDoNavegacion(route: string) {
     const navigationExtras: NavigationExtras = {
       state: {
-        username: this.username,
-        nombre: this.nombre,
-        apellido: this.apellido,
-        educacion: this.educacion,
-        fechaNacimiento: this.fechaNacimiento,
+        username: this.userData.username,
+        nombre: this.userData.nombre,
+        apellido: this.userData.apellido,
+        educacion: this.userData.educacion,
+        fechaNacimiento: this.userData.fechaNacimiento,
       },
     };
 
-    this.router.navigate(['todo'], navigationExtras);
+    this.router.navigate([`/${route}`], navigationExtras);
   }
 }

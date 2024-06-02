@@ -81,4 +81,7 @@ export class TodoPage implements OnInit {
       this.tareas = JSON.parse(tareasGuardadas);
     }
   }
+  toDoNavegacion() {
+    this.router.navigate(['home']);
+  }
 }
