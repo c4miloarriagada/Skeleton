@@ -1,6 +1,7 @@
 import { Router, NavigationExtras } from '@angular/router';
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { AlertController, AnimationController, IonCard } from '@ionic/angular';
+import { DbService } from '../services/db.service';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,12 @@ export class HomePage implements OnInit {
   apellido: string = '';
   educacion: string = '';
   fechaNacimiento: string = '';
-
+  segment: string = 'experienciaLaboral';
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private animationCtrl: AnimationController
+    private animationCtrl: AnimationController,
+    private dbService: DbService
   ) {}
 
   ngOnInit() {
@@ -31,6 +33,9 @@ export class HomePage implements OnInit {
     }
   }
 
+  segmentChanged(event: any) {
+    this.segment = event.detail.value;
+  }
   ngAfterViewInit() {
     const animation = this.animationCtrl
       .create()
@@ -79,5 +84,9 @@ export class HomePage implements OnInit {
     };
 
     this.router.navigate([`/${route}`], navigationExtras);
+  }
+
+  logout() {
+    this.dbService.logout();
   }
 }

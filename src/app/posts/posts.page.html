@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Logout
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button (click)="toDoNavegacion()" style="margin-left: 15px;">Volver</ion-button>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3" *ngFor="let post of posts">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Post #{{ post.id }}</ion-card-subtitle>
+            <ion-card-title>{{ post.title }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{ post.body }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

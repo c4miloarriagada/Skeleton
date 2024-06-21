@@ -1,0 +1,19 @@
+{
+  "name": "skeletonapp",
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^18.0.3",
+    "@angular/cli": "17.3.8",
+    "@capacitor/cli": "^6.0.0"
+  },
+  "dependencies": {
+    "@angular/platform-browser-dynamic": "^18.0.2",
+    "@awesome-cordova-plugins/sqlite": "^6.7.0",
+    "@capacitor/android": "6.0.0",
+    "@capacitor/camera": "^6.0.1",
+    "@capacitor/core": "^6.0.0",
+    "@ionic/angular": "^8.2.1",
+    "@ionic/angular-toolkit": "^11.0.1",
+    "@ionic/storage-angular": "^4.0.0",
+    "cordova-sqlite-storage": "^6.1.0"
+  }
+}

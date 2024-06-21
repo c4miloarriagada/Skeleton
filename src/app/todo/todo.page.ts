@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimationController, IonCard } from '@ionic/angular';
+import { DbService } from '../services/db.service';
 
 @Component({
   selector: 'app-todo',
@@ -24,7 +25,8 @@ export class TodoPage implements OnInit {
 
   constructor(
     private router: Router,
-    private animationCtrl: AnimationController
+    private animationCtrl: AnimationController,
+    private db: DbService
   ) {}
 
   ngOnInit() {
@@ -83,5 +85,8 @@ export class TodoPage implements OnInit {
   }
   toDoNavegacion() {
     this.router.navigate(['home']);
+  }
+  logout() {
+    this.db.logout();
   }
 }

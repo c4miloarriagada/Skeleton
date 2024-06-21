@@ -1,0 +1,22 @@
+<ion-list>
+  <ion-item>
+    <ion-label position="floating">Empresa</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Año Inicio</ion-label>
+    <ion-input type="number"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Actualmente trabaja aquí</ion-label>
+    <ion-checkbox slot="start"></ion-checkbox>
+  </ion-item>
+  <ion-item *ngIf="!isCurrentlyWorking">
+    <ion-label position="floating">Año Término</ion-label>
+    <ion-input type="number"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Cargo</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+</ion-list>

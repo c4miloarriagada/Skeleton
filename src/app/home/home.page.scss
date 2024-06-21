@@ -1,11 +1,28 @@
 ion-header {
-  display: flex;
-  --background: #333;
-  --color: #fff;
-
   ion-toolbar {
-    --background: linear-gradient(to center, #4d9abf, #3e7c9e);
-    --color: #fff;
+    --min-height: 56px;
+  }
+
+  ion-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  ion-button {
+    --padding-start: 8px;
+    --padding-end: 8px;
+    font-size: 0.9rem;
+  }
+
+  ion-segment {
+    padding: 5px 0;
+  }
+
+  ion-segment-button {
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+    font-size: 0.8rem;
+    text-transform: none;
   }
 }
 
@@ -42,24 +59,8 @@ ion-input {
   margin-top: 20px;
 }
 
-ion-button {
-  width: 30%;
-}
-
 ion-card {
   display: flex;
   justify-content: center;
   background-color: transparent;
-}
-
-ion-buttons {
-  margin-top: 3rem;
-  display: flex;
-  justify-content: center;
-  background-color: transparent;
-}
-
-ion-button {
-  background-color: #333;
-  border-radius: 2px;
 }

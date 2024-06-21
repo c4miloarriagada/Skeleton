@@ -1,8 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Logout
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="light">
+    <ion-segment (ionChange)="segmentChanged($event)" color="primary">
+      <ion-segment-button value="experienciaLaboral">
+        <ion-label>Experiencia Laboral</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="certificaciones">
+        <ion-label>Certificaciones</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="misDatos">
+        <ion-label>Mis Datos</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
@@ -13,6 +30,9 @@
   <ion-buttons>
     <ion-button (click)="toDoNavegacion('todo')">Ir a To-Do App</ion-button>
     <ion-button (click)="toDoNavegacion('profile')">Ir a Mi Perfil</ion-button>
+    <ion-button (click)="toDoNavegacion('posts')">Ir a Posts</ion-button>
+    <ion-button (click)="toDoNavegacion('pokemon')">Ir a ver Pokemons</ion-button>
+    <ion-button (click)="toDoNavegacion('camera')">Saca fotos y editalas</ion-button>
   </ion-buttons>
   <div id="container">
     <ion-card>
@@ -46,5 +66,11 @@
         </div>
       </form>
     </ion-card>
+  </div>
+
+  <div [ngSwitch]="segment">
+    <app-experiencia-laboral *ngSwitchCase="'experienciaLaboral'"></app-experiencia-laboral>
+    <app-certificaciones *ngSwitchCase="'certificaciones'"></app-certificaciones>
+    <app-mis-datos *ngSwitchCase="'misDatos'"></app-mis-datos>
   </div>
 </ion-content>

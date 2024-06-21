@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DbService } from '../services/db.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ export class ProfilePage implements OnInit {
   apellido: string = '';
   educacion: string = '';
   fechaNacimiento: string = '';
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dbService: DbService) {}
 
   ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
@@ -28,5 +29,8 @@ export class ProfilePage implements OnInit {
 
   toDoNavegacion() {
     this.router.navigate(['home']);
+  }
+  logout() {
+    this.dbService.logout();
   }
 }
