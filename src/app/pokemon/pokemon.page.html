@@ -7,13 +7,14 @@
         Logout
       </ion-button>
     </ion-buttons>
-
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  <ion-button (click)="toDoNavegacion()" style="margin-left: 15px;">Volver</ion-button>
+  <ion-button (click)="toDoNavegacion()" style="margin-left: 15px;" fill="clear">
+    Volver
+  </ion-button>
+
   <ion-grid>
     <ion-row>
       <ion-col size="6" size-sm="4" size-md="3" size-lg="2" *ngFor="let poke of pokemon">
@@ -28,17 +29,16 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="previousPage()" [disabled]="offset === 0">
+      <ion-button (click)="previousPage()" [disabled]="offset === 0" fill="clear">
         <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
-        Anterior
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="nextPage()">
-        Siguiente
+      <ion-button (click)="nextPage()" fill="clear">
         <ion-icon name="arrow-forward-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>

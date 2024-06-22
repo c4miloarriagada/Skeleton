@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DbService } from '../services/db.service';
 import { Router } from '@angular/router';
+
 interface Pokemon {
   name: string;
   url: string;
@@ -18,6 +19,7 @@ export class PokemonPage implements OnInit {
   pokemon: Pokemon[] = [];
   offset: number = 0;
   limit: number = 20;
+
   constructor(
     private http: HttpClient,
     private dbService: DbService,
@@ -39,26 +41,67 @@ export class PokemonPage implements OnInit {
       this.loadPokemon();
     }
   }
-  loadPokemon() {
-    this.http
-      .get<any>(
-        `https://pokeapi.co/api/v2/pokemon?offset=${this.offset}&limit=${this.limit}`
-      )
-      .subscribe(
-        (response) => {
-          this.pokemon = response.results.map((poke: any, index: number) => ({
-            ...poke,
-            id: this.offset + index + 1,
-            imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-              this.offset + index + 1
-            }.png`,
-          }));
-        },
-        (error) => {
-          console.error('Error fetching Pokemon:', error);
-        }
+
+  async loadPokemon() {
+    const hayPokemon = await this.dbService.hayPokemonGuardados();
+
+    if (hayPokemon) {
+      console.log('Cargando Pokémon desde la base de datos...');
+      const pokemonDB = await this.dbService.buscarPokemon(
+        this.offset,
+        this.limit
       );
+
+      if (pokemonDB.length < this.limit) {
+        const nuevosPokemons = await this.cargarPokemonsDesdeAPI();
+        this.pokemon = [...pokemonDB, ...nuevosPokemons];
+      } else {
+        this.pokemon = pokemonDB;
+      }
+    } else {
+      console.log('Cargando Pokémon desde la API...');
+      this.pokemon = await this.cargarPokemonsDesdeAPI();
+    }
   }
+
+  private async cargarPokemonsDesdeAPI(): Promise<Pokemon[]> {
+    return new Promise<Pokemon[]>((resolve, reject) => {
+      this.http
+        .get<any>(
+          `https://pokeapi.co/api/v2/pokemon?offset=${this.offset}&limit=${this.limit}`
+        )
+        .subscribe(
+          async (response) => {
+            const nuevosPokemons = response.results.map(
+              (poke: any, index: number) => ({
+                id: this.offset + index + 1,
+                name: poke.name,
+                imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                  this.offset + index + 1
+                }.png`,
+                url: poke.url,
+              })
+            );
+
+            for (let poke of nuevosPokemons) {
+              await this.dbService.insertarPokemon(
+                poke.id,
+                poke.name,
+                poke.imageUrl,
+                poke.url
+              );
+            }
+            this.dbService.presentToast('Pokémon guardados con éxito');
+            resolve(nuevosPokemons);
+          },
+          (error) => {
+            console.error('Error fetching Pokemon:', error);
+            reject(error);
+          }
+        );
+    });
+  }
+
   toDoNavegacion() {
     this.router.navigate(['home']);
   }

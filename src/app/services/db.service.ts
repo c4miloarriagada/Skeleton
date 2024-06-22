@@ -17,6 +17,13 @@ export class DbService {
   usuarioPrueba: string = `INSERT OR IGNORE INTO sesion_data (user_name, password, active)
                                     VALUES ('usuario_prueba', 123456, 1);`;
 
+  tablaPokemon: string = `CREATE TABLE IF NOT EXISTS pokemon (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    imageUrl TEXT NOT NULL,
+    url TEXT NOT NULL
+  );`;
+
   listaUsarios = new BehaviorSubject([]);
 
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -70,6 +77,7 @@ export class DbService {
   async crearTablas() {
     try {
       await this.database.executeSql(this.tablaSesion, []);
+      await this.database.executeSql(this.tablaPokemon, []);
       await this.database.executeSql(this.usuarioPrueba, []);
       this.buscarSesiones();
       this.isDbReady.next(true);
@@ -138,5 +146,47 @@ export class DbService {
       this.presentToast('Sesión cerrada con éxito');
       this.router.navigate(['/login']);
     }
+  }
+  insertarPokemon(id: number, name: string, imageUrl: string, url: string) {
+    const data = [id, name, imageUrl, url];
+    return this.database.executeSql(
+      'INSERT OR IGNORE INTO pokemon (id, name, imageUrl, url) VALUES (?, ?, ?, ?)',
+      data
+    );
+  }
+
+  buscarPokemon(offset: number, limit: number): Promise<any[]> {
+    return this.database
+      .executeSql(`SELECT * FROM pokemon LIMIT ? OFFSET ?`, [limit, offset])
+      .then((res) => {
+        let items: any[] = [];
+        if (res.rows.length > 0) {
+          for (var i = 0; i < res.rows.length; i++) {
+            items.push({
+              id: res.rows.item(i).id,
+              name: res.rows.item(i).name,
+              imageUrl: res.rows.item(i).imageUrl,
+              url: res.rows.item(i).url,
+            });
+          }
+        }
+        return items;
+      });
+  }
+
+  async hayPokemonGuardados(): Promise<boolean> {
+    const res = await this.database.executeSql(
+      'SELECT COUNT(*) as total FROM pokemon',
+      []
+    );
+    return res.rows.item(0).total > 0;
+  }
+
+  async existePokemon(id: number): Promise<boolean> {
+    const res = await this.database.executeSql(
+      'SELECT COUNT(*) as total FROM pokemon WHERE id = ?',
+      [id]
+    );
+    return res.rows.item(0).total > 0;
   }
 }
