@@ -3,7 +3,21 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.0.3",
     "@angular/cli": "17.3.8",
-    "@capacitor/cli": "^6.0.0"
+    "@capacitor/cli": "^6.0.0",
+    "@types/jasmine": "^5.1.4",
+    "jasmine": "^5.1.0",
+    "jasmine-spec-reporter": "^7.0.0",
+    "karma": "^6.4.3",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage-istanbul-reporter": "^3.0.3",
+    "karma-jasmine": "^5.1.0",
+    "karma-jasmine-html-reporter": "^2.1.0",
+    "protractor": "^7.0.0",
+    "ts-node": "^10.9.2"
+  },
+  "scripts": {
+    "e2e": "protractor protractor.conf.js",
+    "test": "ng test"
   },
   "dependencies": {
     "@angular/platform-browser-dynamic": "^18.0.2",
@@ -14,6 +28,7 @@
     "@ionic/angular": "^8.2.1",
     "@ionic/angular-toolkit": "^11.0.1",
     "@ionic/storage-angular": "^4.0.0",
-    "cordova-sqlite-storage": "^6.1.0"
+    "cordova-sqlite-storage": "^6.1.0",
+    "karma-coverage": "^2.2.1"
   }
 }

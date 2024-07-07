@@ -38,6 +38,10 @@ export class DbService {
     this.crearDb();
   }
 
+  dbReady() {
+    return this.isDbReady;
+  }
+
   async presentToast(msj: string) {
     const toast = await this.toastController.create({
       message: msj,

@@ -43,17 +43,20 @@ export class PokemonPage implements OnInit {
   }
 
   async loadPokemon() {
-    const hayPokemon = await this.dbService.hayPokemonGuardados();
+    const hayPokemon =
+      this.dbService.dbReady().value &&
+      (await this.dbService.hayPokemonGuardados());
 
     if (hayPokemon) {
       console.log('Cargando Pokémon desde la base de datos...');
-      const pokemonDB = await this.dbService.buscarPokemon(
-        this.offset,
-        this.limit
-      );
+      const pokemonDB = this.dbService.dbReady().value
+        ? await this.dbService.buscarPokemon(this.offset, this.limit)
+        : [];
 
       if (pokemonDB.length < this.limit) {
-        const nuevosPokemons = await this.cargarPokemonsDesdeAPI();
+        const nuevosPokemons = this.dbService.dbReady().value
+          ? await this.cargarPokemonsDesdeAPI()
+          : [];
         this.pokemon = [...pokemonDB, ...nuevosPokemons];
       } else {
         this.pokemon = pokemonDB;
@@ -84,12 +87,13 @@ export class PokemonPage implements OnInit {
             );
 
             for (let poke of nuevosPokemons) {
-              await this.dbService.insertarPokemon(
-                poke.id,
-                poke.name,
-                poke.imageUrl,
-                poke.url
-              );
+              this.dbService.dbReady().value &&
+                (await this.dbService.insertarPokemon(
+                  poke.id,
+                  poke.name,
+                  poke.imageUrl,
+                  poke.url
+                ));
             }
             this.dbService.presentToast('Pokémon guardados con éxito');
             resolve(nuevosPokemons);
